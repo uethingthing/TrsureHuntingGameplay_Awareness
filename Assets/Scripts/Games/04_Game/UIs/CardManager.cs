@@ -12,6 +12,9 @@ public class CardManager : MonoBehaviour
     [SerializeField]
     protected Text m_cardText;
 
+    [SerializeField]
+    protected Image m_cardImage;
+
     //--------------------------------------------
     // データ
     //--------------------------------------------
@@ -25,7 +28,16 @@ public class CardManager : MonoBehaviour
     /// <param name="no"></param>
     public virtual void Visible(int no = 0)
     {
-        m_cardText.text = m_cardSet.Cards[no].text;
+        if (m_cardText != null)
+        {
+            m_cardText.text = m_cardSet.Cards[no].text;
+        }
+
+        if (m_cardImage != null)
+        {
+            m_cardImage.sprite = m_cardSet.Cards[no].sprite;
+        }
+
         gameObject.SetActive(true);
     }
 

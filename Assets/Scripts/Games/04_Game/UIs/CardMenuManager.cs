@@ -11,6 +11,12 @@ public class CardMenuManager : MonoBehaviour
     //--------------------------------------------
 
     [SerializeField]
+    private ToggleGroup m_toggleGroup;
+
+    [SerializeField]
+    private RectTransform m_fingerIcon;
+
+    [SerializeField]
     private CardSelectManager[] m_cardSelectManagers;
 
     [SerializeField]
@@ -19,8 +25,7 @@ public class CardMenuManager : MonoBehaviour
     [SerializeField]
     private Button m_notUseButton;
 
-    [SerializeField]
-    private GameObject m_useSkillObject;
+    public System.Action<int> OnUseEvent;
 
     //--------------------------------------------
     // データ
@@ -39,8 +44,6 @@ public class CardMenuManager : MonoBehaviour
 
     void Awake()
     {
-        m_maxCard = m_cardSelectManagers.Length;
-
         Action<int> action = (no) => m_selectNo = no;
         for (int i = 0; i < m_cardSelectManagers.Length; i++)
         {
@@ -51,6 +54,50 @@ public class CardMenuManager : MonoBehaviour
         m_notUseButton.onClick.AddListener(() => OnNotUseButton());
 
         gameObject.SetActive(true);
+
+        m_maxCard = m_cardSelectManagers.Length;
+    }
+
+    private void Start()
+    {
+        var toggles = m_toggleGroup.GetComponentsInChildren<Toggle>();
+        foreach(var toggle in toggles)
+        {
+            toggle.onValueChanged.AddListener((isOn) =>
+            {
+                if(isOn)
+                {
+                    OnCardSelected(toggle);
+                }
+            });
+        }
+
+        m_fingerIcon.gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        m_fingerIcon.gameObject.SetActive(false);
+    }
+
+    private void OnCardSelected(Toggle selectedToggle)
+    {
+        // 初めて選択されたから表示する
+        if(!m_fingerIcon.gameObject.activeSelf)
+        {
+            m_fingerIcon.gameObject.SetActive(true);
+        }
+
+        // 選択されたToggleのRectTransformを取得
+        RectTransform cardRect = selectedToggle.GetComponent<RectTransform>();
+
+        // 指アイコンをカードの位置へ移動
+        m_fingerIcon.position = cardRect.position;
+
+        // 指アイコンがカードの上に来るようにy位置を調整
+        Vector3 newPos = m_fingerIcon.localPosition;
+        newPos.y += 170f;
+        m_fingerIcon.localPosition = newPos;
     }
 
     /// <summary>
@@ -93,9 +140,11 @@ public class CardMenuManager : MonoBehaviour
             // カード使用状態にする
             GameInfo.Game.IsUseCard = true;
             GameInfo.Game.SelectCardNo = m_selectNo;
-            m_useSkillObject.SetActive(true);
 
             gameObject.SetActive(false);
+
+            // カード使用時のイベント通知
+            OnUseEvent?.Invoke(m_selectNo);
         }
     }
 

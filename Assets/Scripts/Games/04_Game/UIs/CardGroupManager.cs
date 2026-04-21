@@ -19,6 +19,9 @@ public class CardGroupManager : MonoBehaviour
     private CardMenuManager m_cardMenu;
 
     [SerializeField]
+    private CardPopupManager m_cardPopup;
+
+    [SerializeField]
     private Text m_cardCount;
 
     //--------------------------------------------
@@ -35,11 +38,16 @@ public class CardGroupManager : MonoBehaviour
     {
         m_maxCard = m_cardManagers.Length;
 
+    }
+
+    private void Start()
+    {
         m_skillCardButton.onClick.AddListener(() => OnSkillCardButton());
+        m_cardMenu.OnUseEvent = (selectNo) => { m_cardPopup.Visible(selectNo); };
     }
 
     /// <summary>
-    /// カード表示
+    /// カード表示s
     /// </summary>
     public void Visible()
     {

@@ -10,9 +10,6 @@ public class CardSelectManager : CardManager
     // コンポーネント
     //--------------------------------------------
 
-    [SerializeField]
-    private Text m_infoText;
-
     private Toggle m_cardToggle;
 
     //--------------------------------------------
@@ -44,7 +41,6 @@ public class CardSelectManager : CardManager
 
     public override void Visible(int no = 0)
     {
-        m_infoText.text = m_cardSet.Cards[no].info;
         base.Visible(no);
     }
 

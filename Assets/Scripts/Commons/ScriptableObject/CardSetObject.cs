@@ -8,6 +8,7 @@ public struct CardSet
     public string text;
     public Sprite sprite;
     public string info;
+    public Sprite bigSprite;
 }
 
 [CreateAssetMenu(fileName = "CardSetObject", menuName = "Scriptable Objects/CardSetObject")]

@@ -32,7 +32,6 @@ public class UWRHelper : MonoBehaviour
     public UnityWebRequest CreateGetUrl(string key)
     {
         UnityWebRequest uwr = default;
-
         switch (GameInfo.URLType)
         {
             case URLType.Develop:

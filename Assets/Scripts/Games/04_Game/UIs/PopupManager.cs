@@ -12,12 +12,18 @@ public class PopupManager : MonoBehaviour
     [SerializeField]
     private Text m_wordText;
 
+    [SerializeField]
+    private Text m_JPwordText;
+
     //--------------------------------------------
     // データ
     //--------------------------------------------
 
     [SerializeField]
     private WordSetObject[] m_wordSetObject;
+
+    [SerializeField]
+    private WordSetObject[] m_JPwordSetObject;
 
     //--------------------------------------------
     // 表示
@@ -30,6 +36,7 @@ public class PopupManager : MonoBehaviour
     public void Visible(int no = 0)
     {
         m_wordText.text = m_wordSetObject[GameInfo.Game.SelectLevel].Words[no];
+        m_JPwordText.text = m_JPwordSetObject[GameInfo.Game.SelectLevel].Words[no];
         gameObject.SetActive(true);
     }
 

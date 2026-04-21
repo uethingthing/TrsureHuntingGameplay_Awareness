@@ -23,6 +23,9 @@ public class WordManager : MonoBehaviour
     private Text m_wordText;
 
     [SerializeField]
+    private Text m_JPwordText;
+
+    [SerializeField]
     private Text m_pointText;
 
     [SerializeField]
@@ -35,10 +38,16 @@ public class WordManager : MonoBehaviour
     [SerializeField]
     private WordSetObject[] m_wordSetObject;
 
+    [SerializeField]
+    private WordSetObject[] m_JPwordSetObject;
+
     private int m_no;
 
     [SerializeField, ReadOnly]
     private string m_word;
+
+    [SerializeField, ReadOnly]
+    private string m_JPword;
 
     [SerializeField, ReadOnly]
     private int m_point;
@@ -52,6 +61,7 @@ public class WordManager : MonoBehaviour
         m_no = -1;
 
         m_wordText.text = "";
+        m_JPwordText.text = "";
         m_pointText.text = "";
 
         m_wordBackImage.enabled = false;
@@ -77,11 +87,13 @@ public class WordManager : MonoBehaviour
         {
             // まだ選択されていなければ単語を表示する
             m_wordText.text = m_wordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
+            m_JPwordText.text = m_JPwordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
             m_wordBackImage.enabled = true;
         }
         else
         {
             m_wordText.text = "";
+            m_JPwordText.text = "";
             m_wordBackImage.enabled = false;
         }
 
@@ -96,6 +108,7 @@ public class WordManager : MonoBehaviour
         }
 
         m_word = m_wordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
+        m_JPword = m_JPwordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
         m_point = GameInfo.Game.WordDatas[m_no].Point;
     }
 
@@ -166,6 +179,7 @@ public class WordManager : MonoBehaviour
         m_gameManager.VisibleUseSkill(false);
         m_popupManager.Invisible();
         m_wordText.text = "";
+        m_JPwordText.text = "";
         m_wordBackImage.enabled = false;
 
         // 選択した側の場合
