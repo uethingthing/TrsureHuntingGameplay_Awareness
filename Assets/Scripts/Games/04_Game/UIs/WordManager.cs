@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +30,12 @@ public class WordManager : MonoBehaviour
     [SerializeField]
     private Image m_wordBackImage;
 
+    [SerializeField]
+    private GameObject m_hitObj;
+
+    [SerializeField]
+    private GameObject m_missObj;
+
     //--------------------------------------------
     // データ
     //--------------------------------------------
@@ -43,14 +48,14 @@ public class WordManager : MonoBehaviour
 
     private int m_no;
 
-    [SerializeField, ReadOnly]
-    private string m_word;
+    //[SerializeField, ReadOnly]
+    //private string m_word;
 
-    [SerializeField, ReadOnly]
-    private string m_JPword;
+    //[SerializeField, ReadOnly]
+    //private string m_JPword;
 
-    [SerializeField, ReadOnly]
-    private int m_point;
+    //[SerializeField, ReadOnly]
+    //private int m_point;
 
     //--------------------------------------------
     // 初期化
@@ -76,6 +81,14 @@ public class WordManager : MonoBehaviour
         button.onClick.AddListener(() => StartCoroutine(OnWordButton()));
     }
 
+    public void VisiblePoint()
+    {
+        if(m_pointText != null)
+        {
+            m_pointText.text = GameInfo.Game.WordDatas[m_no].Point.ToString();
+        }
+    }
+
     public void SetNo(int no)
     {
         m_no = no;
@@ -99,17 +112,22 @@ public class WordManager : MonoBehaviour
 
         if (GameInfo.MyData.WordPlaceRead[m_no])
         {
-            // リーディングアイが使用されていれば得点を表示する
-            m_pointText.text = GameInfo.Game.WordDatas[m_no].Point.ToString();
+            //// リーディングアイが使用されていれば得点を表示する
+            //m_pointText.text = GameInfo.Game.WordDatas[m_no].Point.ToString();
+            bool isHit = GameInfo.Game.WordDatas[m_no].Point > 0;
+            m_hitObj.SetActive(isHit);
+            m_missObj.SetActive(!isHit);
         }
         else
         {
-            m_pointText.text = "";
+            //m_pointText.text = "";
+            m_hitObj.SetActive(false);
+            m_missObj.SetActive(false);
         }
 
-        m_word = m_wordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
-        m_JPword = m_JPwordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
-        m_point = GameInfo.Game.WordDatas[m_no].Point;
+        //m_word = m_wordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
+        //m_JPword = m_JPwordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
+        //m_point = GameInfo.Game.WordDatas[m_no].Point;
     }
 
     //--------------------------------------------
@@ -129,7 +147,10 @@ public class WordManager : MonoBehaviour
             if(card == CardType.ReadingEye)
             {
                 // リーディングアイ使用していた場合、ポイントを表示する
-                m_pointText.text = GameInfo.Game.WordDatas[m_no].Point.ToString();
+                //m_pointText.text = GameInfo.Game.WordDatas[m_no].Point.ToString();
+                bool isHit = GameInfo.Game.WordDatas[m_no].Point > 0;
+                m_hitObj.SetActive(isHit);
+                m_missObj.SetActive(!isHit);
                 
                 GameInfo.Game.IsUseCard = false;
                 int userNo = GameInfo.MyUserNo;

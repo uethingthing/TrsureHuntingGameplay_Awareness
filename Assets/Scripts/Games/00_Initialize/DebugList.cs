@@ -37,6 +37,9 @@ public class DebugList : UWRHelper
     [SerializeField, Header("URLドロップダウンリスト")]
     private Dropdown m_URLDropDown = null;
 
+    [SerializeField, Header("単語ボタンポイント表示用ボタン")]
+    private Button m_VisibleWordPointsButton = null;
+
     /// <summary>
     /// Start
     /// </summary>
@@ -57,6 +60,7 @@ public class DebugList : UWRHelper
         m_DisplayGameDataButton.onClick.AddListener(() => OnClick_DisplayGameDataButton());
         m_URLDropDown.onValueChanged.AddListener((int value) => OnValueChanged_URLDropDown(value));
         m_URLDropDown.value = (int)GameInfo.URLType;
+        m_VisibleWordPointsButton.onClick.AddListener(() => OnClickVisibleWordPointsButton());
     }
 
     /// <summary>
@@ -161,6 +165,18 @@ public class DebugList : UWRHelper
         var type = (URLType)value;
         GameInfo.URLType = type;
         Debug.Log("環境" + GameInfo.URLType);
+    }
+
+    private void OnClickVisibleWordPointsButton()
+    {
+        var words = UnityEngine.GameObject.FindObjectsOfType<WordManager>();
+        if(words != null)
+        {
+            foreach(var word in words)
+            {
+                word.VisiblePoint();
+            }
+        }
     }
 
     /// <summary>

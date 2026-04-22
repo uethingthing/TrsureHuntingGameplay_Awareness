@@ -438,6 +438,8 @@ MonoBehaviour:
   m_JPwordText: {fileID: 2966709993135880394}
   m_pointText: {fileID: 5113802414082088296}
   m_wordBackImage: {fileID: 2292435329248185369}
+  m_hitObj: {fileID: 2295881184532743251}
+  m_missObj: {fileID: 3345914740803645528}
   m_wordSetObject:
   - {fileID: 11400000, guid: bc5a5ffac29469b4b858aa65fecbbfa8, type: 2}
   - {fileID: 11400000, guid: 77dea5c2e07a9fd46aab3eade52fed31, type: 2}
