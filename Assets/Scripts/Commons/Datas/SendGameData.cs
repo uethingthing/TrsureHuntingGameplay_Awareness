@@ -150,6 +150,34 @@ public class SendGameData
     public List<int> User2Card => m_user2Card;
 
     /// <summary>
+    /// User1がDoubleカードを使用したか？
+    /// </summary>
+    [SerializeField]
+    private bool m_user1IsUseDouble;
+    public bool User1IsUseDouble => m_user1IsUseDouble;
+
+    /// <summary>
+    /// User2がDoubleカードを使用したか？
+    /// </summary>
+    [SerializeField]
+    private bool m_user2IsUseDouble;
+    public bool User2IsUseDouble => m_user2IsUseDouble;
+
+    /// <summary>
+    /// User1がRareカードを使用したか？
+    /// </summary>
+    [SerializeField]
+    private bool m_user1IsUseRare;
+    public bool User1IsUseRare => m_user1IsUseRare;
+
+    /// <summary>
+    /// User2がRareカードを使用したか？
+    /// </summary>
+    [SerializeField]
+    private bool m_user2IsUseRare;
+    public bool User2IsUseRare => m_user2IsUseRare;
+
+    /// <summary>
     /// カード使用フラグ
     /// </summary>
     [SerializeField]
@@ -206,6 +234,10 @@ public class SendGameData
         m_user2Score = 0;
         m_user1Card = new List<int>();
         m_user2Card = new List<int>();
+        m_user1IsUseDouble = false;
+        m_user2IsUseDouble = false;
+        m_user1IsUseRare = false;
+        m_user2IsUseRare = false;
         m_isUseCard = false;
         m_selectCardNo = -1;
         m_winOrLose = new List<int>();
@@ -270,6 +302,10 @@ public class SendGameData
             int num = (int)data.Get<long>();
             sendGameData.m_user2Card.Add(num);
         }
+        sendGameData.m_user1IsUseDouble = json[0][nameof(m_user1IsUseDouble)].Get<bool>();
+        sendGameData.m_user2IsUseDouble = json[0][nameof(m_user2IsUseDouble)].Get<bool>();
+        sendGameData.m_user1IsUseRare = json[0][nameof(m_user1IsUseRare)].Get<bool>();
+        sendGameData.m_user2IsUseRare = json[0][nameof(m_user2IsUseRare)].Get<bool>();
         sendGameData.m_isUseCard = json[0][nameof(m_isUseCard)].Get<bool>();
         sendGameData.m_selectCardNo = (int)json[0][nameof(m_selectCardNo)].Get<long>();
         foreach (var data in json[0][nameof(m_winOrLose)])
@@ -312,6 +348,10 @@ public class SendGameData
         sendGameData.m_user2Score = gameData.UserData[1].Score;
         sendGameData.m_user1Card = gameData.UserData[0].Card.ConvertAll(n => (int)n);
         sendGameData.m_user2Card = gameData.UserData[1].Card.ConvertAll(n => (int)n);
+        sendGameData.m_user1IsUseDouble = gameData.UserData[0].IsUseDouble;
+        sendGameData.m_user2IsUseDouble = gameData.UserData[1].IsUseDouble;
+        sendGameData.m_user1IsUseRare = gameData.UserData[0].IsUseRare;
+        sendGameData.m_user2IsUseRare = gameData.UserData[1].IsUseRare;
         sendGameData.m_isUseCard = gameData.IsUseCard;
         sendGameData.m_selectCardNo = gameData.SelectCardNo;
         sendGameData.m_winOrLose = gameData.WinOrLose.ConvertAll(n => (int)n);

@@ -33,6 +33,12 @@ public class ResultManager : MonoBehaviour
     [SerializeField]
     private Image m_resultBgImage;
 
+    [SerializeField]
+    private Image m_skillEffectDoubleImage;
+
+    [SerializeField]
+    private Image m_skillEffectRareImage;
+
     [SerializeField, Header("リザルト文言画像")]
     private Sprite[] m_sprites;
 
@@ -84,6 +90,10 @@ public class ResultManager : MonoBehaviour
             m_resultImage.sprite = m_sprites[(int)Result.Lose];
             m_resultBgImage.sprite = m_bgSprites[(int)Result.Lose];
         }
+
+        m_skillEffectDoubleImage.gameObject.SetActive(GameInfo.MyData.IsUseDouble);
+        m_skillEffectRareImage.gameObject.SetActive(GameInfo.MyData.IsUseRare);
+
         m_resultDialogManager.Init(isContinue, messageText, buttonText);
 
         gameObject.SetActive(true);

@@ -73,12 +73,24 @@ public class UserData
     /// </summary>
     public List<CardType> Card { get; set; }
 
+    /// <summary>
+    /// Doubleカードを使用したか？
+    /// </summary>
+    public bool IsUseDouble { get; set; }
+
+    /// <summary>
+    /// Rareカードを使用したか？
+    /// </summary>
+    public bool IsUseRare { get; set; }
+
     public UserData()
     {
         WordPlaceRead = new List<bool>();
         TotalScore = 0;
         Score = 0;
         Card = new List<CardType>();
+        IsUseDouble = false;
+        IsUseRare = false;
     }
 }
 
@@ -218,6 +230,8 @@ public class GameData
             UserData[i].WordPlaceRead.Clear();
             UserData[i].Score = 0;
             UserData[i].Card.Clear();
+            UserData[i].IsUseDouble = false;
+            UserData[i].IsUseRare = false;
         }
         IsUseCard = false;
         SelectCardNo = -1;
@@ -259,6 +273,10 @@ public class GameData
         gameData.UserData[1].Score = sendGameData.User2Score;
         gameData.UserData[0].Card = sendGameData.User1Card.ConvertAll(n => (CardType)Enum.ToObject(typeof(CardType), n));
         gameData.UserData[1].Card = sendGameData.User2Card.ConvertAll(n => (CardType)Enum.ToObject(typeof(CardType), n));
+        gameData.UserData[0].IsUseDouble = sendGameData.User1IsUseDouble;
+        gameData.UserData[1].IsUseDouble = sendGameData.User2IsUseDouble;
+        gameData.UserData[0].IsUseRare = sendGameData.User1IsUseRare;
+        gameData.UserData[1].IsUseRare = sendGameData.User2IsUseRare;
         gameData.IsUseCard = sendGameData.IsUseCard;
         gameData.SelectCardNo = sendGameData.SelectCardNo;
         gameData.WinOrLose = sendGameData.WinOrLose.ConvertAll(n => (Turn)Enum.ToObject(typeof(Turn), n));
@@ -306,11 +324,15 @@ public class GameData
             $"  {nameof(global::UserData.TotalScore)}: {UserData[0].TotalScore}\n" +
             $"  {nameof(global::UserData.Score)}: {UserData[0].Score}\n" +
             $"  {nameof(global::UserData.Card)}: {string.Join(",", UserData[0].Card)}\n" +
+            $"  {nameof(global::UserData.IsUseDouble)}: {UserData[0].IsUseDouble}\n" +
+            $"  {nameof(global::UserData.IsUseDouble)}: {UserData[0].IsUseRare}\n" +
             $" User2Data\n" +
             $"  {nameof(global::UserData.WordPlaceRead)}: {string.Join(",", UserData[1].WordPlaceRead)}\n" +
             $"  {nameof(global::UserData.TotalScore)}: {UserData[1].TotalScore}\n" +
             $"  {nameof(global::UserData.Score)}: {UserData[1].Score}\n" +
             $"  {nameof(global::UserData.Card)}: {string.Join(",", UserData[1].Card)}\n" +
+            $"  {nameof(global::UserData.IsUseDouble)}: {UserData[1].IsUseDouble}\n" +
+            $"  {nameof(global::UserData.IsUseDouble)}: {UserData[1].IsUseRare}\n" +
             $" {nameof(IsUseCard)}: {IsUseCard}\n" +
             $" {nameof(SelectCardNo)}: {SelectCardNo}\n" +
             $" {nameof(WinOrLose)}: {string.Join(",", WinOrLose)}\n" +

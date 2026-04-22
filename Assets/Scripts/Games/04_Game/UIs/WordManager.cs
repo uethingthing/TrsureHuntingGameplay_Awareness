@@ -218,6 +218,17 @@ public class WordManager : MonoBehaviour
             // カードを使用していた場合リストから削除する
             if (GameInfo.Game.IsUseCard)
             {
+                if(card == CardType.Double)
+                {
+                    // リザルト表示に使用する為、Doubleカードの使用履歴を残す
+                    GameInfo.Game.UserData[userNo].IsUseDouble = true;
+                }
+                else if(card == CardType.Rare)
+                {
+                    // リザルト表示に使用する為、Rareカードの使用履歴を残す
+                    GameInfo.Game.UserData[userNo].IsUseRare = true;
+                }
+
                 GameInfo.Game.IsUseCard = false;
                 GameInfo.Game.UserData[userNo].Card.RemoveAt(GameInfo.Game.SelectCardNo);
                 // 所持カードの表示更新

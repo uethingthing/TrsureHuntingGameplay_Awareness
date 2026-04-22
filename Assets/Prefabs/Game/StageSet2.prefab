@@ -56,6 +56,8 @@ MonoBehaviour:
   m_resultDialogManager: {fileID: 3358257792680949203}
   m_resultImage: {fileID: 6011927715116942235}
   m_resultBgImage: {fileID: 7632570763616347855}
+  m_skillEffectDoubleImage: {fileID: 1739903400313829628}
+  m_skillEffectRareImage: {fileID: 1779427607543423450}
   m_sprites:
   - {fileID: 21300000, guid: f9d3eb09573eb0c4dbe3ace5deaec4d4, type: 3}
   - {fileID: 21300000, guid: e9864c7f825bcde4fbdcb504ec8f114f, type: 3}
