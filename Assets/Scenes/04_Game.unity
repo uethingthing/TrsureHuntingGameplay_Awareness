@@ -382,8 +382,11 @@ GameObject:
   - component: {fileID: 224133626}
   - component: {fileID: 224133625}
   - component: {fileID: 224133624}
+  - component: {fileID: 224133628}
+  - component: {fileID: 224133627}
+  - component: {fileID: 224133629}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CardButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -403,10 +406,10 @@ RectTransform:
   m_Father: {fileID: 1295462361}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -14}
-  m_SizeDelta: {x: 127, y: 97}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &224133624
 MonoBehaviour:
@@ -470,9 +473,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 611cd39137f976d4aba8ae5dc1b283e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8e18b3414140f24aae6ceee7715eaef, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -488,6 +491,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 224133622}
   m_CullTransparentMesh: 0
+--- !u!114 &224133627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224133622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 3
+  m_AspectRatio: 1.468085
+--- !u!114 &224133628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224133622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176c7dd74ebeecd43a5a819ffc1d5444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_button: {fileID: 224133624}
+  m_image: {fileID: 224133625}
+  m_sprites:
+  - {fileID: 21300000, guid: 4677033f7166148408e2b8c67011f6a6, type: 3}
+  - {fileID: 21300000, guid: 902f44ef0792e274badf8d653f1f0fd6, type: 3}
+  - {fileID: 21300000, guid: d8e18b3414140f24aae6ceee7715eaef, type: 3}
+--- !u!114 &224133629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224133622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce5af29a601e0d4481fe711af5b6bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &258598636
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,6 +1019,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CardMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006808658646545158, guid: 3b7cd4f6c0869aa48903812001ddfc9c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3006808658646545177, guid: 3b7cd4f6c0869aa48903812001ddfc9c,
         type: 3}
@@ -1533,6 +1585,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardImage2
       objectReference: {fileID: 0}
+    - target: {fileID: 4607234771241521532, guid: 27dd9ca4f608e5b4386e11f34581c4db,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4607234771241521535, guid: 27dd9ca4f608e5b4386e11f34581c4db,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2025,7 +2082,7 @@ MonoBehaviour:
   - {fileID: 4607234770545306826}
   - {fileID: 1107954188}
   - {fileID: 1434346067}
-  m_skillCardButton: {fileID: 224133624}
+  m_skillCardButton: {fileID: 224133628}
   m_cardMenu: {fileID: 670269577}
   m_cardPopup: {fileID: 666390883}
   m_cardCount: {fileID: 1549499011}
@@ -2260,6 +2317,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CardImage3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607234771241521532, guid: 27dd9ca4f608e5b4386e11f34581c4db,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4607234771241521535, guid: 27dd9ca4f608e5b4386e11f34581c4db,
         type: 3}
@@ -2613,7 +2675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1549499010
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3464,6 +3526,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CardImage
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607234771241521532, guid: 27dd9ca4f608e5b4386e11f34581c4db,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4607234771241521535, guid: 27dd9ca4f608e5b4386e11f34581c4db,
         type: 3}

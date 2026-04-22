@@ -13,7 +13,7 @@ public class CardGroupManager : MonoBehaviour
     private CardManager[] m_cardManagers;
 
     [SerializeField]
-    private Button m_skillCardButton;
+    private CardButton m_skillCardButton;
 
     [SerializeField]
     private CardMenuManager m_cardMenu;
@@ -42,12 +42,12 @@ public class CardGroupManager : MonoBehaviour
 
     private void Start()
     {
-        m_skillCardButton.onClick.AddListener(() => OnSkillCardButton());
+        m_skillCardButton.Button.onClick.AddListener(() => OnSkillCardButton());
         m_cardMenu.OnUseEvent = (selectNo) => { m_cardPopup.Visible(selectNo); };
     }
 
     /// <summary>
-    /// カード表示s
+    /// カード表示
     /// </summary>
     public void Visible()
     {
@@ -59,13 +59,14 @@ public class CardGroupManager : MonoBehaviour
 
         // 自分の持つカードを表示
         UserData myData = GameInfo.MyData;
-        // 画像更新と表示
-        for (int i = 0; i < myData.Card.Count && i < m_maxCard; i++)
-        {
-            m_cardManagers[i].Visible((int)myData.Card[i]);
-        }
+        m_skillCardButton.SetImage(myData.Card.Count);
+        //// 画像更新と表示
+        //for (int i = 0; i < myData.Card.Count && i < m_maxCard; i++)
+        //{
+        //    m_cardManagers[i].Visible((int)myData.Card[i]);
+        //}
 
-        m_cardCount.text = myData.Card.Count.ToString();
+        //m_cardCount.text = myData.Card.Count.ToString();
     }
 
     //--------------------------------------------
