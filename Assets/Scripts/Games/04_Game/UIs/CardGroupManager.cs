@@ -69,6 +69,14 @@ public class CardGroupManager : MonoBehaviour
         //m_cardCount.text = myData.Card.Count.ToString();
     }
 
+    public void VisibleSkillCardButton(bool isVisible)
+    {
+        if(m_skillCardButton != null)
+        {
+            m_skillCardButton.gameObject.SetActive(isVisible);
+        }
+    }
+
     //--------------------------------------------
     // ボタン
     //--------------------------------------------
