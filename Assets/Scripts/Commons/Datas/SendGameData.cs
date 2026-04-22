@@ -185,6 +185,13 @@ public class SendGameData
     public bool IsUseCard => m_isUseCard;
 
     /// <summary>
+    /// 使用カード
+    /// </summary>
+    [SerializeField]
+    private int m_useCard;
+    public int UseCard => m_useCard;
+
+    /// <summary>
     /// 使用したカードの番号
     /// </summary>
     [SerializeField]
@@ -239,6 +246,7 @@ public class SendGameData
         m_user1IsUseRare = false;
         m_user2IsUseRare = false;
         m_isUseCard = false;
+        m_useCard = 0;
         m_selectCardNo = -1;
         m_winOrLose = new List<int>();
         m_isNextGame = false;
@@ -307,6 +315,7 @@ public class SendGameData
         sendGameData.m_user1IsUseRare = json[0][nameof(m_user1IsUseRare)].Get<bool>();
         sendGameData.m_user2IsUseRare = json[0][nameof(m_user2IsUseRare)].Get<bool>();
         sendGameData.m_isUseCard = json[0][nameof(m_isUseCard)].Get<bool>();
+        sendGameData.m_useCard = (int)json[0][nameof(m_useCard)].Get<long>();
         sendGameData.m_selectCardNo = (int)json[0][nameof(m_selectCardNo)].Get<long>();
         foreach (var data in json[0][nameof(m_winOrLose)])
         {
@@ -353,6 +362,7 @@ public class SendGameData
         sendGameData.m_user1IsUseRare = gameData.UserData[0].IsUseRare;
         sendGameData.m_user2IsUseRare = gameData.UserData[1].IsUseRare;
         sendGameData.m_isUseCard = gameData.IsUseCard;
+        sendGameData.m_useCard = (int)gameData.UseCard;
         sendGameData.m_selectCardNo = gameData.SelectCardNo;
         sendGameData.m_winOrLose = gameData.WinOrLose.ConvertAll(n => (int)n);
         sendGameData.m_isNextGame = gameData.IsNextGame;

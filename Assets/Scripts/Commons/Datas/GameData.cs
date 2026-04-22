@@ -162,6 +162,11 @@ public class GameData
     public bool IsUseCard { get; set; }
 
     /// <summary>
+    /// 使用カード
+    /// </summary>
+    public CardType UseCard { get; set; }
+
+    /// <summary>
     /// 使用したカードの番号
     /// </summary>
     public int SelectCardNo { get; set; }
@@ -212,6 +217,7 @@ public class GameData
         }
 
         IsUseCard = false;
+        UseCard = CardType.None;
         SelectCardNo = -1;
         WinOrLose = new List<Turn>();
         IsNextGame = false;
@@ -234,6 +240,7 @@ public class GameData
             UserData[i].IsUseRare = false;
         }
         IsUseCard = false;
+        UseCard = CardType.None;
         SelectCardNo = -1;
     }
 
@@ -278,6 +285,7 @@ public class GameData
         gameData.UserData[0].IsUseRare = sendGameData.User1IsUseRare;
         gameData.UserData[1].IsUseRare = sendGameData.User2IsUseRare;
         gameData.IsUseCard = sendGameData.IsUseCard;
+        gameData.UseCard = (CardType)sendGameData.UseCard;
         gameData.SelectCardNo = sendGameData.SelectCardNo;
         gameData.WinOrLose = sendGameData.WinOrLose.ConvertAll(n => (Turn)Enum.ToObject(typeof(Turn), n));
         gameData.IsNextGame = sendGameData.IsNextGame;
@@ -334,6 +342,7 @@ public class GameData
             $"  {nameof(global::UserData.IsUseDouble)}: {UserData[1].IsUseDouble}\n" +
             $"  {nameof(global::UserData.IsUseDouble)}: {UserData[1].IsUseRare}\n" +
             $" {nameof(IsUseCard)}: {IsUseCard}\n" +
+            $" {nameof(UseCard)}: {UseCard}\n" +
             $" {nameof(SelectCardNo)}: {SelectCardNo}\n" +
             $" {nameof(WinOrLose)}: {string.Join(",", WinOrLose)}\n" +
             $" {nameof(IsNextGame)}: {IsNextGame}\n" +

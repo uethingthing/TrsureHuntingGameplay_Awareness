@@ -43,7 +43,11 @@ public class CardGroupManager : MonoBehaviour
     private void Start()
     {
         m_skillCardButton.Button.onClick.AddListener(() => OnSkillCardButton());
-        m_cardMenu.OnUseEvent = (selectNo) => { m_cardPopup.Visible(selectNo); };
+        m_cardMenu.OnUseEvent = (selectNo) => {
+            // 自分の持つカードを表示
+            var card = GameInfo.MyData.Card[selectNo];
+            m_cardPopup.Visible(card);
+        };
     }
 
     /// <summary>
@@ -67,6 +71,15 @@ public class CardGroupManager : MonoBehaviour
         //}
 
         //m_cardCount.text = myData.Card.Count.ToString();
+    }
+
+    /// <summary>
+    /// 選択カード表示
+    /// </summary>
+    /// <param name="cardType"></param>
+    public void VisibleCardPopup(CardType cardType)
+    {
+        m_cardPopup.Visible(cardType);
     }
 
     public void VisibleSkillCardButton(bool isVisible)

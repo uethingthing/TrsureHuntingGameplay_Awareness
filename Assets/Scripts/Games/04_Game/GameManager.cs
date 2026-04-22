@@ -300,6 +300,15 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                         break;
                     }
                 }
+
+                // スキルが使用されていれば同じように表示する
+                if(GameInfo.Game.UseCard != oldGameData.UseCard)
+                {
+                    if (GameInfo.Game.UseCard != CardType.None)
+                    {
+                        m_cardGroupManager.VisibleCardPopup(GameInfo.Game.UseCard);
+                    }
+                }
             }
             else
             {

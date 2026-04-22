@@ -13,30 +13,37 @@ class CardPopupManager : MonoBehaviour
     [SerializeField]
     private CardSetObject m_cardSetObject;
 
+    private GameDataSync m_gameDataSync;
+
 
     private void Awake()
     {
+        m_gameDataSync = FindObjectsOfType<GameDataSync>()[0];
+
         if (m_rootObj != null)
         {
             m_rootObj.SetActive(false);
         }
     }
 
-    public void Visible(int selectedNo)
+    public void Visible(CardType cardType)
     {
-        if(m_cardImage != null)
+        if (m_cardImage != null)
         {
             // 自分の持つカードを表示
-            UserData myData = GameInfo.MyData;
-            int spriteIdx = (int)myData.Card[selectedNo];
+            int spriteIdx = (int)cardType;
             m_cardImage.sprite = m_cardSetObject.Cards[spriteIdx].bigSprite;
         }
 
-        StartCoroutine(CoShow());
+        StartCoroutine(CoShow(cardType));
     }
 
-    private IEnumerator CoShow()
+    private IEnumerator CoShow(CardType cardType)
     {
+        // 相手にもカードを表示させるためデータを送信
+        GameInfo.Game.UseCard = cardType;
+        yield return m_gameDataSync.CoUpdateGameData(GameInfo.Game);
+
         m_rootObj.SetActive(true);
         yield return new WaitForSeconds(5f);
 
