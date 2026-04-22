@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
@@ -10,13 +8,22 @@ public class TurnManager : MonoBehaviour
     //--------------------------------------------
 
     [SerializeField]
-    private Text m_turnText;
+    private Image m_turnImage;
+
+    [SerializeField]
+    private Sprite[] m_sprites;
+
+    private enum TurnSpriteIdx
+    {
+        MyTurn = 0,
+        OpponentTurn,
+    }
 
     //--------------------------------------------
     // データ
     //--------------------------------------------
 
-    private Turn oldTurn;
+    private Turn m_oldTurn;
 
     //--------------------------------------------
     // 更新
@@ -24,27 +31,24 @@ public class TurnManager : MonoBehaviour
 
     void Awake()
     {
-        m_turnText.text = "";
-        oldTurn = Turn.None;
+        m_oldTurn = Turn.None;
     }
 
     // Update is called once per frame
     void Update()
     {
         Turn turn = GameInfo.Game.Turn;
-        if (oldTurn != turn)
+        if (m_oldTurn != turn)
         {
-            string text = "";
             if(turn == GameInfo.MyTurn)
             {
-                text = "Your Turn";
+                m_turnImage.sprite = m_sprites[(int)TurnSpriteIdx.MyTurn];
             }
             else if(turn == GameInfo.OpponentTurn)
             {
-                text = "Opponent Turn";
+                m_turnImage.sprite = m_sprites[(int)TurnSpriteIdx.OpponentTurn];
             }
-            m_turnText.text = text;
-            oldTurn = turn;
+            m_oldTurn = turn;
         }
     }
 }

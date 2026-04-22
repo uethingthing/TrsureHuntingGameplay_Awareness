@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class RoundManager : MonoBehaviour
@@ -10,7 +8,10 @@ public class RoundManager : MonoBehaviour
     //--------------------------------------------
 
     [SerializeField]
-    private Text m_roundText;
+    private Image m_roundNumImage;
+
+    [SerializeField]
+    private Sprite[] m_sprites;
 
     //--------------------------------------------
     // 初期化
@@ -19,6 +20,7 @@ public class RoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_roundText.text = (GameInfo.Game.WinOrLose.Count + 1).ToString();
+        int spriteIdx = Mathf.Clamp(GameInfo.Game.WinOrLose.Count, 0, 2);
+        m_roundNumImage.sprite = m_sprites[spriteIdx];
     }
 }
