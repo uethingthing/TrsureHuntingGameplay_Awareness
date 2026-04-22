@@ -48,15 +48,6 @@ public class WordManager : MonoBehaviour
 
     private int m_no;
 
-    //[SerializeField, ReadOnly]
-    //private string m_word;
-
-    //[SerializeField, ReadOnly]
-    //private string m_JPword;
-
-    //[SerializeField, ReadOnly]
-    //private int m_point;
-
     //--------------------------------------------
     // 初期化
     //--------------------------------------------
@@ -108,26 +99,22 @@ public class WordManager : MonoBehaviour
             m_wordText.text = "";
             m_JPwordText.text = "";
             m_wordBackImage.enabled = false;
+            m_hitObj.SetActive(false);
+            m_missObj.SetActive(false);
         }
 
         if (GameInfo.MyData.WordPlaceRead[m_no])
         {
             //// リーディングアイが使用されていれば得点を表示する
-            //m_pointText.text = GameInfo.Game.WordDatas[m_no].Point.ToString();
             bool isHit = GameInfo.Game.WordDatas[m_no].Point > 0;
             m_hitObj.SetActive(isHit);
             m_missObj.SetActive(!isHit);
         }
         else
         {
-            //m_pointText.text = "";
             m_hitObj.SetActive(false);
             m_missObj.SetActive(false);
         }
-
-        //m_word = m_wordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
-        //m_JPword = m_JPwordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
-        //m_point = GameInfo.Game.WordDatas[m_no].Point;
     }
 
     //--------------------------------------------
@@ -146,8 +133,7 @@ public class WordManager : MonoBehaviour
             CardType card = GetCard();
             if(card == CardType.ReadingEye)
             {
-                // リーディングアイ使用していた場合、ポイントを表示する
-                //m_pointText.text = GameInfo.Game.WordDatas[m_no].Point.ToString();
+                // リーディングアイ使用していた場合、あたり/はずれを表示する
                 bool isHit = GameInfo.Game.WordDatas[m_no].Point > 0;
                 m_hitObj.SetActive(isHit);
                 m_missObj.SetActive(!isHit);
@@ -202,6 +188,8 @@ public class WordManager : MonoBehaviour
         m_wordText.text = "";
         m_JPwordText.text = "";
         m_wordBackImage.enabled = false;
+        m_hitObj.SetActive(false);
+        m_missObj.SetActive(false);
 
         // 選択した側の場合
         if (GameInfo.MyTurn == turn)
