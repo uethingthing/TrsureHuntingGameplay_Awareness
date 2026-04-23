@@ -50,6 +50,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [SerializeField]
     private WordSetObject[] m_wordSetObject;
 
+    [SerializeField]
+    private GameObject m_uiObject;
+
     //--------------------------------------------
     // データ
     //--------------------------------------------
@@ -152,6 +155,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         // 設定されたデータを表示する
         VisibleDatas();
 
+        // UIを表示する
+        VisibleUI(true);
+
         // ゲーム同期を開始する
         m_GameDataSync.StartGameSync();
 
@@ -231,6 +237,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         // 設定されたデータを表示する
         VisibleDatas();
+
+        // UIを表示する
+        VisibleUI(true);
 
         if (CheckGameEnd())
         {
@@ -342,6 +351,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         // ゲームの同期を止める
         m_GameDataSync.StopGameSync();
 
+        // UIを非表示にする
+        VisibleUI(false);
+
         m_stageManager.VisibleResult();
 
         return null;
@@ -387,5 +399,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public void VisibleUseSkill(bool isVisible)
     {
         m_useSkillObject.SetActive(isVisible);
+    }
+
+    private void VisibleUI(bool isVisible)
+    {
+        m_uiObject.SetActive(isVisible);
     }
 }

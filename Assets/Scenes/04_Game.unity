@@ -3069,6 +3069,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bc5a5ffac29469b4b858aa65fecbbfa8, type: 2}
   - {fileID: 11400000, guid: 77dea5c2e07a9fd46aab3eade52fed31, type: 2}
   - {fileID: 11400000, guid: d37f2edf0b638e54c9424df17dfed92a, type: 2}
+  m_uiObject: {fileID: 59424247}
 --- !u!4 &1926256738
 Transform:
   m_ObjectHideFlags: 0
