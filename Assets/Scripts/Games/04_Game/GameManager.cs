@@ -321,8 +321,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
             else
             {
-                // 自分ターン中であればカードボタンは表示する
-                m_cardGroupManager.VisibleSkillCardButton(true);
+                // 自分ターン中で所持カードがあればカードボタンは表示する
+                if(GameInfo.MyData.Card.Count > 0)
+                {
+                    m_cardGroupManager.VisibleSkillCardButton(true);
+                }
             }
 
             // スコアが更新されていれば変動があったポイントを表示する
