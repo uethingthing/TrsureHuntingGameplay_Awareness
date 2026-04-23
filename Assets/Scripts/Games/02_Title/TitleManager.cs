@@ -28,6 +28,9 @@ public class TitleManager : UWRHelper
     [SerializeField]
     private GameObject m_debugSetObject;
 
+    [SerializeField]
+    private TitleViewManager m_titleViewManager;
+
     private DebugSetID m_debugSetId;
 
     //--------------------------------------------
@@ -78,6 +81,9 @@ public class TitleManager : UWRHelper
 
         // ボタンSE再生
         AudioManager.I.PlaySe(AudioNames.ButtonSE);
+
+        // Start表示
+        yield return m_titleViewManager.VisibleStart();
 
         // ルームシーンへ遷移
         SceneFadeManager.I.Load(SceneName.Room);
