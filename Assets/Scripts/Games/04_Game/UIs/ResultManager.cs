@@ -95,6 +95,7 @@ public class ResultManager : MonoBehaviour
         m_skillEffectRareImage.gameObject.SetActive(GameInfo.MyData.IsUseRare);
 
         m_resultDialogManager.Init(isContinue, messageText, buttonText);
+        m_resultDialogManager.SetRetryButton();
 
         gameObject.SetActive(true);
     }

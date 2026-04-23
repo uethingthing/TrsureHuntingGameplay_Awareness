@@ -23,11 +23,16 @@ public class ResultDialogManager : MonoBehaviour
     [SerializeField, Header("ボタン")]
     private Button m_button;
 
+    [SerializeField, Header("TouchScreen")]
+    private Button m_touchScreenButton;
+
     //--------------------------------------------
     // データ
     //--------------------------------------------
 
-    private bool m_isContinue;
+    private bool m_isContinue = false;
+
+    private bool m_isProcessing = false;
 
     //--------------------------------------------
     // 初期化
@@ -35,7 +40,8 @@ public class ResultDialogManager : MonoBehaviour
 
     private void Awake()
     {
-        m_button.onClick.AddListener(() => StartCoroutine(CoOnClickButton()));
+        m_button.onClick.AddListener(() => OnClickButton());
+        m_touchScreenButton.onClick.AddListener(() => OnClickButton());
 
         m_gameDataSync = FindObjectsOfType<GameDataSync>()[0];
     }
@@ -47,17 +53,32 @@ public class ResultDialogManager : MonoBehaviour
         m_buttonText.text = buttonText;
     }
 
+    public void SetRetryButton()
+    {
+        bool isRetry = GameInfo.Game.WinOrLose.Count == 2;
+        m_button.gameObject.SetActive(isRetry);
+        m_touchScreenButton.gameObject.SetActive(!isRetry);
+    }
+
     /// <summary>
     /// ボタン反応 表示/非表示
     /// </summary>
     private void SetIntaractableButton(bool enabled)
     {
         m_button.interactable = enabled;
+        m_touchScreenButton.interactable = enabled;
     }
 
     //--------------------------------------------
     // ボタン
     //--------------------------------------------
+    private void OnClickButton()
+    {
+        if (m_isProcessing)
+            return;
+
+        StartCoroutine(CoOnClickButton());
+    }
 
     /// <summary>
     /// リトライボタン
