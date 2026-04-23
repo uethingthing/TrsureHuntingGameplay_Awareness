@@ -38,7 +38,7 @@ public class GameDataManager : UWRHelper
     /// </summary>
     public const string USER_2 = "User2";
 
-    private const int MAX_STAGE = 4;
+    private const int MAX_STAGE = 3;
 
     //--------------------------------------------
     // コンポーネント
@@ -273,8 +273,13 @@ public class GameDataManager : UWRHelper
         {
             case PlayerType.Student:
                 yield return CheckTimeLimit(CoSelectLevel);
-                // ステージを決める
-                GameInfo.Game.StageNo = GameInfo.Game.SelectLevel;
+                // ステージを決める 連続して同じステージにならないように同じステージなら引き直す
+                int randomStage = 0;
+                do
+                {
+                    randomStage = UnityEngine.Random.Range(0, MAX_STAGE);
+                } while (GameInfo.Game.StageNo == randomStage);
+                GameInfo.Game.StageNo = randomStage;
                 yield return CoUpdateGameData(GameInfo.Game);
                 break;
 
