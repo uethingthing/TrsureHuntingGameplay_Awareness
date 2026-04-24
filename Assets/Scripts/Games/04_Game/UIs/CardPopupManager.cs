@@ -13,6 +13,9 @@ class CardPopupManager : MonoBehaviour
     [SerializeField]
     private CardSetObject m_cardSetObject;
 
+    [SerializeField, Header("表示時間")]
+    private float m_showWaitTime = 5f;
+
     private GameDataSync m_gameDataSync;
 
 
@@ -40,12 +43,13 @@ class CardPopupManager : MonoBehaviour
 
     private IEnumerator CoShow(CardType cardType)
     {
-        // 相手にもカードを表示させるためデータを送信
-        GameInfo.Game.UseCard = cardType;
-        yield return m_gameDataSync.CoUpdateGameData(GameInfo.Game);
-
         m_rootObj.SetActive(true);
-        yield return new WaitForSeconds(5f);
+
+        Coroutine waitPopupRoutine = StartCoroutine(CoWaitPopupTime());
+        Coroutine updateGameDataRoutine = StartCoroutine(CoUpdateGameData(cardType));
+
+        yield return waitPopupRoutine;
+        yield return updateGameDataRoutine;
 
         m_rootObj.SetActive(false);
 
@@ -53,5 +57,17 @@ class CardPopupManager : MonoBehaviour
         {
             m_cardImage.sprite = m_cardSetObject.Cards[(int)CardType.None].bigSprite;
         }
+    }
+
+    private IEnumerator CoWaitPopupTime()
+    {
+        yield return new WaitForSeconds(m_showWaitTime);
+    }
+
+    private IEnumerator CoUpdateGameData(CardType cardType)
+    {
+        // 相手にもカードを表示させるためデータを送信
+        GameInfo.Game.UseCard = cardType;
+        yield return m_gameDataSync.CoUpdateGameData(GameInfo.Game);
     }
 }
