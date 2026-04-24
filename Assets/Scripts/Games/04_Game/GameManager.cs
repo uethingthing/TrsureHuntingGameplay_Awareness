@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -20,9 +21,18 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     /// </summary>
     private int HOLD_CARD_COUNT = 3;
 
+    public enum GameMode
+    {
+        AllWordsSelectedEnd,    // Word全選択時にゲーム終了
+        HitSelectedEnd,         // 当たり選択時にゲーム終了
+    }
+
     //--------------------------------------------
     // コンポーネント
     //--------------------------------------------
+
+    [SerializeField, Header("ゲームモード変更")]
+    private GameMode m_gameMode = GameMode.HitSelectedEnd;
 
     [SerializeField, Header("ゲームデータ同期")]
     private GameDataSync m_GameDataSync;
@@ -383,13 +393,22 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public bool CheckGameEnd()
     {
         bool end = true;
-        // すべて選択済みか
-        for (int i = 0; i < GameInfo.Game.WordDatas.Count; i++)
+
+        if (m_gameMode == GameMode.HitSelectedEnd)
         {
-            if (!GameInfo.Game.WordDatas[i].Answer)
+            end = GameInfo.Game.WordDatas
+                .Any(_ => _.Point == m_stageManager.JACKPOT_SCORE && _.Answer);
+        }
+        else
+        {
+            // すべて選択済みか
+            for (int i = 0; i < GameInfo.Game.WordDatas.Count; i++)
             {
-                end = false;
-                break;
+                if (!GameInfo.Game.WordDatas[i].Answer)
+                {
+                    end = false;
+                    break;
+                }
             }
         }
 
