@@ -991,7 +991,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_wordSetObject.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d37f2edf0b638e54c9424df17dfed92a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5fae49491c3da4088831998d559faf, type: 3}
 --- !u!224 &62481099265021293 stripped
@@ -1270,7 +1271,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_wordSetObject.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d37f2edf0b638e54c9424df17dfed92a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5fae49491c3da4088831998d559faf, type: 3}
 --- !u!114 &3825278019230844514 stripped
@@ -1412,7 +1414,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_wordSetObject.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d37f2edf0b638e54c9424df17dfed92a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5fae49491c3da4088831998d559faf, type: 3}
 --- !u!114 &3636464480299487905 stripped
@@ -1554,7 +1557,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_wordSetObject.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d37f2edf0b638e54c9424df17dfed92a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5fae49491c3da4088831998d559faf, type: 3}
 --- !u!114 &2393181559435236576 stripped
@@ -1696,7 +1700,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_wordSetObject.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d37f2edf0b638e54c9424df17dfed92a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5fae49491c3da4088831998d559faf, type: 3}
 --- !u!114 &2393181559139351220 stripped
@@ -1838,7 +1843,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_wordSetObject.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d37f2edf0b638e54c9424df17dfed92a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5fae49491c3da4088831998d559faf, type: 3}
 --- !u!224 &5703584461569202004 stripped
@@ -1980,7 +1986,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_wordSetObject.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d37f2edf0b638e54c9424df17dfed92a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5fae49491c3da4088831998d559faf, type: 3}
 --- !u!114 &2393181557898065894 stripped
@@ -2122,7 +2129,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_wordSetObject.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d37f2edf0b638e54c9424df17dfed92a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5fae49491c3da4088831998d559faf, type: 3}
 --- !u!114 &1834582382261826573 stripped
@@ -2264,7 +2272,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_wordSetObject.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d37f2edf0b638e54c9424df17dfed92a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5fae49491c3da4088831998d559faf, type: 3}
 --- !u!114 &1262532321048660625 stripped
@@ -2406,7 +2415,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_wordSetObject.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d37f2edf0b638e54c9424df17dfed92a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e5fae49491c3da4088831998d559faf, type: 3}
 --- !u!114 &1347634941312222842 stripped
