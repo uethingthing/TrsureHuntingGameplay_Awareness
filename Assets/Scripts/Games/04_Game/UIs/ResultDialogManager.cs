@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,12 +12,6 @@ public class ResultDialogManager : MonoBehaviour
     /// ゲームデータ同期
     /// </summary>
     private GameDataSync m_gameDataSync;
-
-    [SerializeField, Header("勝敗テキスト")]
-    private Text m_messageText;
-
-    [SerializeField, Header("ボタンテキスト")]
-    private Text m_buttonText;
 
     [SerializeField, Header("ボタン")]
     private Button m_button;
@@ -49,8 +42,6 @@ public class ResultDialogManager : MonoBehaviour
     public void Init(bool isContinue, string messageText, string buttonText)
     {
         m_isContinue = isContinue;
-        m_messageText.text = messageText;
-        m_buttonText.text = buttonText;
     }
 
     public void SetRetryButton()
