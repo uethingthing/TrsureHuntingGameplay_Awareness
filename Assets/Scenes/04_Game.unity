@@ -3262,7 +3262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a917109489db84cb71ed420afa529e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  POPUP_VISIBLE_TIME: 5
+  POPUP_VISIBLE_TIME: 10
   m_gameMode: 1
   m_GameDataSync: {fileID: 1765015087}
   m_stageTransform: {fileID: 2035584516}
