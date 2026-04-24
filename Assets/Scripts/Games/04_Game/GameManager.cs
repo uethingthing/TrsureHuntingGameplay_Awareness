@@ -132,6 +132,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         VisibleUseSkill(false);
 
+        // UIは非表示にしておく
+        VisibleUI(false);
+
         // 前回の状態からゲームを開始する
         if (GameInfo.IsRestart)
         {
