@@ -214,6 +214,7 @@ public class GameDataManager : UWRHelper
                 {
                     SettingUser(RegistrationType.User02);
                     gameData.UserID_02 = GameInfo.MyUserID;
+                    gameData.User2PlayerType = GameInfo.MyPlayerType;
                     Debug.Log("ユーザー情報が上書きされていました。再度User2として登録します。");
                     yield return CoUpdateGameData(gameData);
                 }
