@@ -134,7 +134,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         }
 
         // SE一覧
-        for (int i = 0; i < m_BgmSet.Audios.Count; i++)
+        for (int i = 0; i < m_SeSet.Audios.Count; i++)
         {
             m_SeList.Add(m_SeSet.Audios[i].Key.ToString(), m_SeSet.Audios[i].Clip);
         }

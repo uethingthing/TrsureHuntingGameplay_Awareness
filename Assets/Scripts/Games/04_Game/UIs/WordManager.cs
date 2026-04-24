@@ -18,6 +18,8 @@ public class WordManager : MonoBehaviour
 
     private CardGroupManager m_cardGroupManager;
 
+    private StageManager m_stageManager;
+
     [SerializeField]
     private Text m_wordText;
 
@@ -67,6 +69,7 @@ public class WordManager : MonoBehaviour
         m_popupManager = FindObjectsOfType<PopupManager>()[0];
         m_scoreManager = FindObjectsOfType<ScoreManager>()[0];
         m_cardGroupManager = FindObjectsOfType<CardGroupManager>()[0];
+        m_stageManager = FindObjectsOfType<StageManager>()[0];
 
         Button button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(() => StartCoroutine(OnWordButton()));
@@ -171,7 +174,15 @@ public class WordManager : MonoBehaviour
     /// </summary>
     public void VisiblePopup()
     {
-        AudioManager.I.PlaySe(AudioNames.ButtonSE);
+        bool isHit = GameInfo.Game.WordDatas[m_no].Point == m_stageManager.JACKPOT_SCORE;
+        if(isHit)
+        {
+            AudioManager.I.PlaySe(AudioNames.HitSE);
+        }
+        else
+        {
+            AudioManager.I.PlaySe(AudioNames.ButtonSE);
+        }
         m_popupManager.Visible(GameInfo.Game.WordDatas[m_no].Place);
         StartCoroutine(CoVisiblePopup(GameInfo.Game.Turn));
     }

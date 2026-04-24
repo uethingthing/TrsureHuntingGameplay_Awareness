@@ -15,5 +15,6 @@
     LadderMoveSE, // コマ梯子移動SE
     MissionSE, // ミッション表示SE
     MissionTextSE, // ミッションテキスト表示SE
-    MissionOKSE // ミッション達成SE
+    MissionOKSE, // ミッション達成SE
+    HitSE,   // あたりSE
 }

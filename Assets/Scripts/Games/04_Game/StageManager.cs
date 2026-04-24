@@ -20,12 +20,13 @@ public class StageManager : MonoBehaviour
     //--------------------------------------------
     // 定数
     //--------------------------------------------
-
     [SerializeField, Header("あたり")]
     private ScoreSet JACKPOT = new ScoreSet(1, 10);
+    public int JACKPOT_SCORE { get { return JACKPOT.score; } }
 
     [SerializeField, Header("はずれ")]
     private ScoreSet MISS = new ScoreSet(1, -1);
+    public int MISS_SCORE { get { return MISS.score; } }
 
     [SerializeField, Header("基本スコア")]
     private int DEFAULT_SCORE = 1;
