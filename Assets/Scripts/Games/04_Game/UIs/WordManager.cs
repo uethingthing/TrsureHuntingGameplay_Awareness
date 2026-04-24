@@ -75,6 +75,16 @@ public class WordManager : MonoBehaviour
         button.onClick.AddListener(() => StartCoroutine(OnWordButton()));
     }
 
+    public void Visible()
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    public void Invisible()
+    {
+        this.gameObject.SetActive(false);
+    }
+
     public void VisiblePoint()
     {
         if(m_pointText != null)

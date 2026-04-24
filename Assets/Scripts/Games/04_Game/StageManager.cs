@@ -61,6 +61,11 @@ public class StageManager : MonoBehaviour
     {
         m_popupManager.Invisible();
         m_result.Invisible();
+
+        for (int i = 0; i < m_wordManagers.Length; i++)
+        {
+            m_wordManagers[i].Invisible();
+        }
     }
 
     public void CreateData(List<int> words)
@@ -121,6 +126,7 @@ public class StageManager : MonoBehaviour
         for (int i = 0; i < m_wordManagers.Length; i++)
         {
             m_wordManagers[i].SetData();
+            m_wordManagers[i].Visible();
         }
     }
 

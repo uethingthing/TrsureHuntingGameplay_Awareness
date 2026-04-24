@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// タイトル画面表示クラス
 /// </summary>
-class TitleViewManager : MonoBehaviour
+class StartManager : MonoBehaviour
 {
     //--------------------------------------------
     // 設定
@@ -18,15 +18,6 @@ class TitleViewManager : MonoBehaviour
     //--------------------------------------------
 
     [SerializeField]
-    private GameObject m_stageObj;
-
-    [SerializeField]
-    private GameObject m_startButtonObj;
-
-    [SerializeField]
-    private GameObject m_debugObj;
-
-    [SerializeField]
     private GameObject m_startObj;
 
     private void Awake()
@@ -36,12 +27,11 @@ class TitleViewManager : MonoBehaviour
 
     public IEnumerator VisibleStart()
     {
-        // Start表示以外を非表示にする
-        m_stageObj.SetActive(false);
-        m_startButtonObj.SetActive(false);
-        m_debugObj.SetActive(false);
+        // Start表示
         m_startObj.SetActive(true);
 
+        // 指定時間経過後に非表示s
         yield return new WaitForSeconds(m_startVisibleTime);
+        m_startObj.SetActive(false);
     }
 }

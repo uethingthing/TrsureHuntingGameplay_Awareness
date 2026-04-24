@@ -42,6 +42,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private ScoreManager m_scoreManager;
 
     [SerializeField]
+    private StartManager m_startManager;
+
+    [SerializeField]
     private GameObject m_useSkillObject;
 
     [SerializeField]
@@ -151,6 +154,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             yield return CoInitializeUser2();
             Debug.Log("User2初期化");
         }
+
+        // Start表示
+        yield return m_startManager.VisibleStart();
 
         // 設定されたデータを表示する
         VisibleDatas();
