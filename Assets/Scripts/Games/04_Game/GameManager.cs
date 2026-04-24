@@ -117,7 +117,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         // 1度だけ勝手にカードが選択されるのを防止するためここで非表示
         m_cardMenuObject.SetActive(false);
 
-        m_cardGroupManager.VisibleSkillCardButton(false);
+        // カードボタン表示更新を止める
+        m_cardGroupManager.ForceInvisibleCardButton();
 
         VisibleUseSkill(false);
 
@@ -271,6 +272,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         // 所持カードの表示
         m_cardGroupManager.Visible();
+        m_cardGroupManager.EnableVisibleUpdate();
 
         m_stageManager.VisibleDatas();
     }
@@ -296,9 +298,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             // ターンが変わっていない場合
             if (!SyncCompletedFlg)
             {
-                // 相手ターン中であればカードボタンは非表示にする
-                m_cardGroupManager.VisibleSkillCardButton(false);
-
                 // カードが使用されていれば使用中表示する
                 if(!oldGameData.IsUseCard && GameInfo.Game.IsUseCard != oldGameData.IsUseCard)
                 {
@@ -323,14 +322,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     {
                         m_cardGroupManager.VisibleCardPopup(GameInfo.Game.UseCard);
                     }
-                }
-            }
-            else
-            {
-                // 自分ターン中で所持カードがあればカードボタンは表示する
-                if(GameInfo.MyData.Card.Count > 0)
-                {
-                    m_cardGroupManager.VisibleSkillCardButton(true);
                 }
             }
 

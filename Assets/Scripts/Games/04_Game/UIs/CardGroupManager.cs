@@ -13,7 +13,7 @@ public class CardGroupManager : MonoBehaviour
     private CardManager[] m_cardManagers;
 
     [SerializeField]
-    private CardButton m_skillCardButton;
+    private CardButtonManager m_cardButton;
 
     [SerializeField]
     private CardMenuManager m_cardMenu;
@@ -42,7 +42,7 @@ public class CardGroupManager : MonoBehaviour
 
     private void Start()
     {
-        m_skillCardButton.Button.onClick.AddListener(() => OnSkillCardButton());
+        m_cardButton.Button.onClick.AddListener(() => OnSkillCardButton());
         m_cardMenu.OnUseEvent = (selectNo) => {
             // 自分の持つカードを表示
             var card = GameInfo.MyData.Card[selectNo];
@@ -63,7 +63,7 @@ public class CardGroupManager : MonoBehaviour
 
         // 自分の持つカードを表示
         UserData myData = GameInfo.MyData;
-        m_skillCardButton.SetImage(myData.Card.Count);
+        m_cardButton.SetImage(myData.Card.Count);
         //// 画像更新と表示
         //for (int i = 0; i < myData.Card.Count && i < m_maxCard; i++)
         //{
@@ -82,12 +82,20 @@ public class CardGroupManager : MonoBehaviour
         m_cardPopup.Visible(cardType);
     }
 
-    public void VisibleSkillCardButton(bool isVisible)
+    /// <summary>
+    /// カードボタンの表示更新を止め、強制的に非表示
+    /// </summary>
+    public void ForceInvisibleCardButton()
     {
-        if(m_skillCardButton != null)
-        {
-            m_skillCardButton.gameObject.SetActive(isVisible);
-        }
+        m_cardButton?.ForceInvisible();
+    }
+
+    /// <summary>
+    /// カードボタンの表示更新を有効化
+    /// </summary>
+    public void EnableVisibleUpdate()
+    {
+        m_cardButton?.EnableVisibleUpdate();
     }
 
     //--------------------------------------------
