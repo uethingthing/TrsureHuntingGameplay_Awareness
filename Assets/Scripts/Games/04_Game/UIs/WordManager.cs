@@ -119,7 +119,7 @@ public class WordManager : MonoBehaviour
         if (GameInfo.MyData.WordPlaceRead[m_no])
         {
             //// リーディングアイが使用されていれば得点を表示する
-            bool isHit = GameInfo.Game.WordDatas[m_no].Point > 0;
+            bool isHit = GameInfo.Game.WordDatas[m_no].Point == m_stageManager.JACKPOT_SCORE;
             m_hitObj.SetActive(isHit);
             m_missObj.SetActive(!isHit);
         }
@@ -147,7 +147,7 @@ public class WordManager : MonoBehaviour
             if(card == CardType.ReadingEye)
             {
                 // リーディングアイ使用していた場合、あたり/はずれを表示する
-                bool isHit = GameInfo.Game.WordDatas[m_no].Point > 0;
+                bool isHit = GameInfo.Game.WordDatas[m_no].Point == m_stageManager.JACKPOT_SCORE;
                 m_hitObj.SetActive(isHit);
                 m_missObj.SetActive(!isHit);
                 
