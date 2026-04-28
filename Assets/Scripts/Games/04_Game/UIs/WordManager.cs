@@ -106,25 +106,20 @@ public class WordManager : MonoBehaviour
             m_wordText.text = m_wordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
             m_JPwordText.text = m_JPwordSetObject[GameInfo.Game.SelectLevel].Words[GameInfo.Game.WordDatas[m_no].Place];
             m_wordBackImage.enabled = true;
+
+            if (GameInfo.MyData.WordPlaceRead[m_no])
+            {
+                //// リーディングアイが使用されていれば得点を表示する
+                bool isHit = GameInfo.Game.WordDatas[m_no].Point == m_stageManager.JACKPOT_SCORE;
+                m_hitObj.SetActive(isHit);
+                m_missObj.SetActive(!isHit);
+            }
         }
         else
         {
             m_wordText.text = "";
             m_JPwordText.text = "";
             m_wordBackImage.enabled = false;
-            m_hitObj.SetActive(false);
-            m_missObj.SetActive(false);
-        }
-
-        if (GameInfo.MyData.WordPlaceRead[m_no])
-        {
-            //// リーディングアイが使用されていれば得点を表示する
-            bool isHit = GameInfo.Game.WordDatas[m_no].Point == m_stageManager.JACKPOT_SCORE;
-            m_hitObj.SetActive(isHit);
-            m_missObj.SetActive(!isHit);
-        }
-        else
-        {
             m_hitObj.SetActive(false);
             m_missObj.SetActive(false);
         }
