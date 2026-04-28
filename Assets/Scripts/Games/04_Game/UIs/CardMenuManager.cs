@@ -39,6 +39,12 @@ public class CardMenuManager : MonoBehaviour
     private int m_selectNo;
 
     //--------------------------------------------
+    // 定数
+    //--------------------------------------------
+
+    private const int MAX_COMMBO_COUNT = 2;
+
+    //--------------------------------------------
     // 初期化
     //--------------------------------------------
 
@@ -140,6 +146,14 @@ public class CardMenuManager : MonoBehaviour
             // カード使用状態にする
             GameInfo.Game.IsUseCard = true;
             GameInfo.Game.SelectCardNo = m_selectNo;
+
+            // "Combo"カードであればコンボ回数を設定する
+            var card = GameInfo.MyData.Card[(int)m_selectNo];
+            if(card == CardType.Combo)
+            {
+                GameInfo.MyData.RemainComboCount = MAX_COMMBO_COUNT;
+            }
+
 
             gameObject.SetActive(false);
 

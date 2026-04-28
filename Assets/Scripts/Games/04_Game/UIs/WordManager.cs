@@ -230,13 +230,35 @@ public class WordManager : MonoBehaviour
                         // リザルト表示に使用する為、Rareカードの使用履歴を残す
                         GameInfo.Game.UserData[userNo].IsUseRare = true;
                     }
+                    else if (card == CardType.Combo)
+                    {
+                        // 残り選択回数を減らす
+                        GameInfo.Game.UserData[userNo].RemainComboCount -= 1;
+                    }
 
-                    GameInfo.Game.IsUseCard = false;
-                    GameInfo.Game.UserData[userNo].Card.RemoveAt(GameInfo.Game.SelectCardNo);
+                    if (card == CardType.Combo)
+                    {
+                        if (GameInfo.Game.UserData[userNo].RemainComboCount <= 0)
+                        {
+                            GameInfo.Game.IsUseCard = false;
+                            GameInfo.Game.UserData[userNo].Card.RemoveAt(GameInfo.Game.SelectCardNo);
+                            GameInfo.Game.SelectCardNo = -1;
+                        }
+                    }
+                    else
+                    {
+                        GameInfo.Game.IsUseCard = false;
+                        GameInfo.Game.UserData[userNo].Card.RemoveAt(GameInfo.Game.SelectCardNo);
+                        GameInfo.Game.SelectCardNo = -1;
+                    }
+
                     // 所持カードの表示更新
                     m_cardGroupManager.Visible();
                 }
-                GameInfo.Game.SelectCardNo = -1;
+                else
+                {
+                    GameInfo.Game.SelectCardNo = -1;
+                }
 
                 yield return m_GameDataSync.CoUpdateGameData(GameInfo.Game);
             }
@@ -266,8 +288,10 @@ public class WordManager : MonoBehaviour
         {
             if (!m_gameManager.CheckGameEnd())
             {
+                bool isComboProcessing = (GameInfo.Game.IsUseCard && (currentCard == CardType.Combo));
+
                 // ゲームが終了していなければターンの変更
-                if (!GameInfo.IsSingleMode && currentCard != CardType.Combo)
+                if (!GameInfo.IsSingleMode && !isComboProcessing)
                 {
                     // デバッグ用モードでないかつ特定カードが使用されていなければターンを変更
                     GameInfo.Game.Turn = GameInfo.OpponentTurn;

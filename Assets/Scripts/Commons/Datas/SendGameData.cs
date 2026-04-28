@@ -178,6 +178,20 @@ public class SendGameData
     public bool User2IsUseRare => m_user2IsUseRare;
 
     /// <summary>
+    /// User1のComboカード使用時の残り選択回数
+    /// </summary>
+    [SerializeField]
+    private int m_user1RemainComboCount;
+    public int User1RemainComboCount => m_user1RemainComboCount;
+
+    /// <summary>
+    /// User2のComboカード使用時の残り選択回数
+    /// </summary>
+    [SerializeField]
+    private int m_user2RemainComboCount;
+    public int User2RemainComboCount => m_user2RemainComboCount;
+
+    /// <summary>
     /// カード使用フラグ
     /// </summary>
     [SerializeField]
@@ -245,6 +259,8 @@ public class SendGameData
         m_user2IsUseDouble = false;
         m_user1IsUseRare = false;
         m_user2IsUseRare = false;
+        m_user1RemainComboCount = 0;
+        m_user2RemainComboCount = 0;
         m_isUseCard = false;
         m_useCard = 0;
         m_selectCardNo = -1;
@@ -314,6 +330,8 @@ public class SendGameData
         sendGameData.m_user2IsUseDouble = json[0][nameof(m_user2IsUseDouble)].Get<bool>();
         sendGameData.m_user1IsUseRare = json[0][nameof(m_user1IsUseRare)].Get<bool>();
         sendGameData.m_user2IsUseRare = json[0][nameof(m_user2IsUseRare)].Get<bool>();
+        sendGameData.m_user1RemainComboCount = (int)json[0][nameof(m_user1RemainComboCount)].Get<long>();
+        sendGameData.m_user2RemainComboCount = (int)json[0][nameof(m_user2RemainComboCount)].Get<long>();
         sendGameData.m_isUseCard = json[0][nameof(m_isUseCard)].Get<bool>();
         sendGameData.m_useCard = (int)json[0][nameof(m_useCard)].Get<long>();
         sendGameData.m_selectCardNo = (int)json[0][nameof(m_selectCardNo)].Get<long>();
@@ -361,6 +379,8 @@ public class SendGameData
         sendGameData.m_user2IsUseDouble = gameData.UserData[1].IsUseDouble;
         sendGameData.m_user1IsUseRare = gameData.UserData[0].IsUseRare;
         sendGameData.m_user2IsUseRare = gameData.UserData[1].IsUseRare;
+        sendGameData.m_user1RemainComboCount = gameData.UserData[0].RemainComboCount;
+        sendGameData.m_user2RemainComboCount = gameData.UserData[1].RemainComboCount;
         sendGameData.m_isUseCard = gameData.IsUseCard;
         sendGameData.m_useCard = (int)gameData.UseCard;
         sendGameData.m_selectCardNo = gameData.SelectCardNo;

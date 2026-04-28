@@ -83,6 +83,8 @@ public class UserData
     /// </summary>
     public bool IsUseRare { get; set; }
 
+    public int RemainComboCount { get; set; }
+
     public UserData()
     {
         WordPlaceRead = new List<bool>();
@@ -91,6 +93,7 @@ public class UserData
         Card = new List<CardType>();
         IsUseDouble = false;
         IsUseRare = false;
+        RemainComboCount = 0;
     }
 }
 
@@ -238,6 +241,7 @@ public class GameData
             UserData[i].Card.Clear();
             UserData[i].IsUseDouble = false;
             UserData[i].IsUseRare = false;
+            UserData[i].RemainComboCount = 0;
         }
         IsUseCard = false;
         UseCard = CardType.None;
@@ -284,6 +288,8 @@ public class GameData
         gameData.UserData[1].IsUseDouble = sendGameData.User2IsUseDouble;
         gameData.UserData[0].IsUseRare = sendGameData.User1IsUseRare;
         gameData.UserData[1].IsUseRare = sendGameData.User2IsUseRare;
+        gameData.UserData[0].RemainComboCount = sendGameData.User1RemainComboCount;
+        gameData.UserData[1].RemainComboCount = sendGameData.User2RemainComboCount;
         gameData.IsUseCard = sendGameData.IsUseCard;
         gameData.UseCard = (CardType)sendGameData.UseCard;
         gameData.SelectCardNo = sendGameData.SelectCardNo;
@@ -334,6 +340,7 @@ public class GameData
             $"  {nameof(global::UserData.Card)}: {string.Join(",", UserData[0].Card)}\n" +
             $"  {nameof(global::UserData.IsUseDouble)}: {UserData[0].IsUseDouble}\n" +
             $"  {nameof(global::UserData.IsUseDouble)}: {UserData[0].IsUseRare}\n" +
+            $"  {nameof(global::UserData.RemainComboCount)}: {UserData[0].RemainComboCount}\n" +
             $" User2Data\n" +
             $"  {nameof(global::UserData.WordPlaceRead)}: {string.Join(",", UserData[1].WordPlaceRead)}\n" +
             $"  {nameof(global::UserData.TotalScore)}: {UserData[1].TotalScore}\n" +
@@ -341,6 +348,7 @@ public class GameData
             $"  {nameof(global::UserData.Card)}: {string.Join(",", UserData[1].Card)}\n" +
             $"  {nameof(global::UserData.IsUseDouble)}: {UserData[1].IsUseDouble}\n" +
             $"  {nameof(global::UserData.IsUseDouble)}: {UserData[1].IsUseRare}\n" +
+            $"  {nameof(global::UserData.RemainComboCount)}: {UserData[1].RemainComboCount}\n" +
             $" {nameof(IsUseCard)}: {IsUseCard}\n" +
             $" {nameof(UseCard)}: {UseCard}\n" +
             $" {nameof(SelectCardNo)}: {SelectCardNo}\n" +
