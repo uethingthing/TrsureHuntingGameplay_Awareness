@@ -311,38 +311,41 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             // ターンが変わっていない場合
             if (!SyncCompletedFlg)
             {
-                // カードが使用されていれば使用中表示する
-                if(!oldGameData.IsUseCard && GameInfo.Game.IsUseCard != oldGameData.IsUseCard)
+                if(GameInfo.Game.Turn != Turn.Result)
                 {
-                    VisibleUseSkill(true);
-                }
-
-                // 単語が選択されていれば同じように表示する
-                for (int i = 0; i < GameInfo.Game.WordDatas.Count; i++)
-                {
-                    if (GameInfo.Game.WordDatas[i].Answer != oldGameData.WordDatas[i].Answer)
+                    // カードが使用されていれば使用中表示する
+                    if (!oldGameData.IsUseCard && GameInfo.Game.IsUseCard != oldGameData.IsUseCard)
                     {
-                        IsVisiblePopup = true;
-                        m_stageManager.VisiblePopup(i);
-                        break;
+                        VisibleUseSkill(true);
+                    }
+
+                    // 単語が選択されていれば同じように表示する
+                    for (int i = 0; i < GameInfo.Game.WordDatas.Count; i++)
+                    {
+                        if (GameInfo.Game.WordDatas[i].Answer != oldGameData.WordDatas[i].Answer)
+                        {
+                            IsVisiblePopup = true;
+                            m_stageManager.VisiblePopup(i);
+                            break;
+                        }
+                    }
+
+                    // スキルが使用されていれば同じように表示する
+                    if (GameInfo.Game.UseCard != oldGameData.UseCard)
+                    {
+                        if (GameInfo.Game.UseCard != CardType.None)
+                        {
+                            m_cardGroupManager.VisibleCardPopup(GameInfo.Game.UseCard);
+                        }
+                    }
+
+                    // スコアが更新されていれば変動があったポイントを表示する
+                    int addScore = GameInfo.OpponentData.Score - oldGameData.UserData[GameInfo.OpponentUserNo].Score;
+                    if (addScore != 0)
+                    {
+                        m_scoreManager.AddScore(addScore, false);
                     }
                 }
-
-                // スキルが使用されていれば同じように表示する
-                if(GameInfo.Game.UseCard != oldGameData.UseCard)
-                {
-                    if (GameInfo.Game.UseCard != CardType.None)
-                    {
-                        m_cardGroupManager.VisibleCardPopup(GameInfo.Game.UseCard);
-                    }
-                }
-            }
-
-            // スコアが更新されていれば変動があったポイントを表示する
-            int addScore = GameInfo.OpponentData.Score - oldGameData.UserData[GameInfo.OpponentUserNo].Score;
-            if (addScore != 0)
-            {
-                m_scoreManager.AddScore(addScore, false);
             }
 
             if (!IsVisiblePopup && GameInfo.Game.Turn == Turn.Result)

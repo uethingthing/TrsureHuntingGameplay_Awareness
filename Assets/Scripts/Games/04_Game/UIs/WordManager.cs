@@ -203,7 +203,27 @@ public class WordManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator CoVisiblePopup(Turn turn)
     {
-        yield return new WaitForSeconds(m_gameManager.POPUP_VISIBLE_TIME);
+        IEnumerator FlagOutRoutine()
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            // 相手側に表示する為にAnswerフラグを上げた後、ポップアップ表示中にアプリを落とした場合に
+            // スコア加算されてないのに単語が選択された状態になるのを回避する
+            GameInfo.Game.WordDatas[m_no].Answer = false;
+            yield return m_GameDataSync.CoUpdateGameData(GameInfo.Game);
+        }
+
+        IEnumerator WaitPopupVisible()
+        {
+            yield return new WaitForSeconds(m_gameManager.POPUP_VISIBLE_TIME);
+        }
+
+        var flagInitRoutine = StartCoroutine(FlagOutRoutine());
+        var waitPopupRoutine = StartCoroutine(WaitPopupVisible());
+
+        yield return flagInitRoutine;
+        yield return waitPopupRoutine;
+
         m_gameManager.VisibleUseSkill(false);
         m_popupManager.Invisible();
         m_wordText.text = "";
@@ -216,6 +236,9 @@ public class WordManager : MonoBehaviour
         if (GameInfo.MyTurn == turn)
         {
             int userNo = GameInfo.MyUserNo;
+
+            // スコア加算時に再度単語選択状態とする
+            GameInfo.Game.WordDatas[m_no].Answer = true;
 
             // 選択した単語に設定されていたスコアを加算
             int point = CalculationScore(GameInfo.Game.WordDatas[m_no].Point);
