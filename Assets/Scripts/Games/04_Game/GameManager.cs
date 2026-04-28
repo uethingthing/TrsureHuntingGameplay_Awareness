@@ -331,7 +331,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     }
 
                     // スキルが使用されていれば同じように表示する
-                    if (GameInfo.Game.UseCard != oldGameData.UseCard)
+                    if (GameInfo.Game.IsUseCard != oldGameData.IsUseCard)
                     {
                         if (GameInfo.Game.UseCard != CardType.None)
                         {
