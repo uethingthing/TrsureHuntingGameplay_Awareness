@@ -322,7 +322,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     // 単語が選択されていれば同じように表示する
                     for (int i = 0; i < GameInfo.Game.WordDatas.Count; i++)
                     {
-                        if (GameInfo.Game.WordDatas[i].Answer != oldGameData.WordDatas[i].Answer)
+                        if (!oldGameData.WordDatas[i].Answer
+                            && GameInfo.Game.WordDatas[i].Answer != oldGameData.WordDatas[i].Answer)
                         {
                             IsVisiblePopup = true;
                             m_stageManager.VisiblePopup(i);
@@ -331,7 +332,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                     }
 
                     // スキルが使用されていれば同じように表示する
-                    if (GameInfo.Game.IsUseCard != oldGameData.IsUseCard)
+                    if (!oldGameData.IsUseCard
+                        && GameInfo.Game.IsUseCard != oldGameData.IsUseCard)
                     {
                         if (GameInfo.Game.UseCard != CardType.None)
                         {

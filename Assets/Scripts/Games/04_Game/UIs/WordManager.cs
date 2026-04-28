@@ -198,26 +198,61 @@ public class WordManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator CoVisiblePopup(Turn turn)
     {
-        IEnumerator FlagOutRoutine()
-        {
-            yield return new WaitForSeconds(0.5f);
+        CardType currentCard = GetCard();
 
-            // 相手側に表示する為にAnswerフラグを上げた後、ポップアップ表示中にアプリを落とした場合に
-            // スコア加算されてないのに単語が選択された状態になるのを回避する
-            GameInfo.Game.WordDatas[m_no].Answer = false;
-            yield return m_GameDataSync.CoUpdateGameData(GameInfo.Game);
+        // ゲームデータ更新ローカルルーチン
+        IEnumerator CoUpdateGameData(CardType card)
+        {
+            // 選択した側の場合
+            if (GameInfo.MyTurn == turn)
+            {
+                int userNo = GameInfo.MyUserNo;
+
+                // スコア加算時に再度単語選択状態とする
+                GameInfo.Game.WordDatas[m_no].Answer = true;
+
+                // 選択した単語に設定されていたスコアを加算
+                int point = CalculationScore(GameInfo.Game.WordDatas[m_no].Point);
+                GameInfo.Game.UserData[userNo].Score += point;
+                GameInfo.Game.UserData[userNo].TotalScore += point;
+                m_scoreManager.AddScore(point, true);
+
+                // カードを使用していた場合リストから削除する
+                if (GameInfo.Game.IsUseCard)
+                {
+                    if (card == CardType.Double)
+                    {
+                        // リザルト表示に使用する為、Doubleカードの使用履歴を残す
+                        GameInfo.Game.UserData[userNo].IsUseDouble = true;
+                    }
+                    else if (card == CardType.Rare)
+                    {
+                        // リザルト表示に使用する為、Rareカードの使用履歴を残す
+                        GameInfo.Game.UserData[userNo].IsUseRare = true;
+                    }
+
+                    GameInfo.Game.IsUseCard = false;
+                    GameInfo.Game.UserData[userNo].Card.RemoveAt(GameInfo.Game.SelectCardNo);
+                    // 所持カードの表示更新
+                    m_cardGroupManager.Visible();
+                }
+                GameInfo.Game.SelectCardNo = -1;
+
+                yield return m_GameDataSync.CoUpdateGameData(GameInfo.Game);
+            }
         }
 
+        // ポップアップ表示待ちローカルルーチン
         IEnumerator WaitPopupVisible()
         {
             yield return new WaitForSeconds(m_gameManager.POPUP_VISIBLE_TIME);
         }
 
-        var flagInitRoutine = StartCoroutine(FlagOutRoutine());
-        var waitPopupRoutine = StartCoroutine(WaitPopupVisible());
+        var coUpdateGameData = StartCoroutine(CoUpdateGameData(currentCard));
+        var coWaitPopupVisible = StartCoroutine(WaitPopupVisible());
 
-        yield return flagInitRoutine;
-        yield return waitPopupRoutine;
+        yield return coUpdateGameData;
+        yield return coWaitPopupVisible;
 
         m_gameManager.VisibleUseSkill(false);
         m_popupManager.Invisible();
@@ -227,46 +262,12 @@ public class WordManager : MonoBehaviour
         m_hitObj.SetActive(false);
         m_missObj.SetActive(false);
 
-        // 選択した側の場合
         if (GameInfo.MyTurn == turn)
         {
-            int userNo = GameInfo.MyUserNo;
-
-            // スコア加算時に再度単語選択状態とする
-            GameInfo.Game.WordDatas[m_no].Answer = true;
-
-            // 選択した単語に設定されていたスコアを加算
-            int point = CalculationScore(GameInfo.Game.WordDatas[m_no].Point);
-            GameInfo.Game.UserData[userNo].Score += point;
-            GameInfo.Game.UserData[userNo].TotalScore += point;
-            m_scoreManager.AddScore(point, true);
-
-            CardType card = GetCard();
-            // カードを使用していた場合リストから削除する
-            if (GameInfo.Game.IsUseCard)
-            {
-                if(card == CardType.Double)
-                {
-                    // リザルト表示に使用する為、Doubleカードの使用履歴を残す
-                    GameInfo.Game.UserData[userNo].IsUseDouble = true;
-                }
-                else if(card == CardType.Rare)
-                {
-                    // リザルト表示に使用する為、Rareカードの使用履歴を残す
-                    GameInfo.Game.UserData[userNo].IsUseRare = true;
-                }
-
-                GameInfo.Game.IsUseCard = false;
-                GameInfo.Game.UserData[userNo].Card.RemoveAt(GameInfo.Game.SelectCardNo);
-                // 所持カードの表示更新
-                m_cardGroupManager.Visible();
-            }
-            GameInfo.Game.SelectCardNo = -1;
-
             if (!m_gameManager.CheckGameEnd())
             {
                 // ゲームが終了していなければターンの変更
-                if (!GameInfo.IsSingleMode && card != CardType.Combo)
+                if (!GameInfo.IsSingleMode && currentCard != CardType.Combo)
                 {
                     // デバッグ用モードでないかつ特定カードが使用されていなければターンを変更
                     GameInfo.Game.Turn = GameInfo.OpponentTurn;
