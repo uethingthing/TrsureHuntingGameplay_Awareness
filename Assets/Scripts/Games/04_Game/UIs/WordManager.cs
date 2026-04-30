@@ -208,8 +208,8 @@ public class WordManager : MonoBehaviour
             {
                 int userNo = GameInfo.MyUserNo;
 
-                // スコア加算時に再度単語選択状態とする
-                GameInfo.Game.WordDatas[m_no].Answer = true;
+                // ユーザー回答済みとする
+                GameInfo.Game.UserData[userNo].IsAnswered = true;
 
                 // 選択した単語に設定されていたスコアを加算
                 int point = CalculationScore(GameInfo.Game.WordDatas[m_no].Point);
@@ -295,6 +295,10 @@ public class WordManager : MonoBehaviour
                 {
                     // デバッグ用モードでないかつ特定カードが使用されていなければターンを変更
                     GameInfo.Game.Turn = GameInfo.OpponentTurn;
+
+                    // ターン変更したのでユーザー回答済みフラグを落とす
+                    int userNo = GameInfo.MyUserNo;
+                    GameInfo.Game.UserData[userNo].IsAnswered = false;
                 }
                 // データを送信する。
                 yield return m_GameDataSync.CoUpdateGameData(GameInfo.Game);

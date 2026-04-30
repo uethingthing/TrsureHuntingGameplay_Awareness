@@ -267,6 +267,30 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
         else
         {
+            // ゲームが終了しておらず自ターン
+            if(GameInfo.MyTurn == GameInfo.Game.Turn)
+            {
+                var currentCard = GameInfo.Game.IsUseCard ? GameInfo.MyData.Card[GameInfo.Game.SelectCardNo] : CardType.None;
+
+                bool isComboProcessing = (GameInfo.Game.IsUseCard && (currentCard == CardType.Combo));
+
+                // デバッグ用モードでないかつ"Combo"カードが使用されていなければターン変更チェック
+                if(!GameInfo.IsSingleMode && !isComboProcessing)
+                {
+                    // ユーザー回答済みであればターン変更をする
+                    int userNo = GameInfo.MyUserNo;
+                    if (GameInfo.Game.UserData[userNo].IsAnswered)
+                    {
+                        GameInfo.Game.Turn = GameInfo.OpponentTurn;
+                        GameInfo.Game.UserData[userNo].IsAnswered = false;
+                        yield return m_GameDataSync.CoUpdateGameData(GameInfo.Game);
+                    }
+
+                    // 自ターン中か調べる
+                    CheckMyTurn();
+                }
+            }
+
             // ゲーム同期を開始する
             m_GameDataSync.StartGameSync();
 

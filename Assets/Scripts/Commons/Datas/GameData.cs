@@ -83,7 +83,15 @@ public class UserData
     /// </summary>
     public bool IsUseRare { get; set; }
 
+    /// <summary>
+    /// 残りコンボ回数
+    /// </summary>
     public int RemainComboCount { get; set; }
+
+    /// <summary>
+    /// 回答済みか？
+    /// </summary>
+    public bool IsAnswered { get; set; }
 
     public UserData()
     {
@@ -94,6 +102,7 @@ public class UserData
         IsUseDouble = false;
         IsUseRare = false;
         RemainComboCount = 0;
+        IsAnswered = false;
     }
 }
 
@@ -242,6 +251,7 @@ public class GameData
             UserData[i].IsUseDouble = false;
             UserData[i].IsUseRare = false;
             UserData[i].RemainComboCount = 0;
+            UserData[i].IsAnswered = false;
         }
         IsUseCard = false;
         UseCard = CardType.None;
@@ -290,6 +300,8 @@ public class GameData
         gameData.UserData[1].IsUseRare = sendGameData.User2IsUseRare;
         gameData.UserData[0].RemainComboCount = sendGameData.User1RemainComboCount;
         gameData.UserData[1].RemainComboCount = sendGameData.User2RemainComboCount;
+        gameData.UserData[0].IsAnswered = sendGameData.User1IsAnswered;
+        gameData.UserData[1].IsAnswered = sendGameData.User2IsAnswered;
         gameData.IsUseCard = sendGameData.IsUseCard;
         gameData.UseCard = (CardType)sendGameData.UseCard;
         gameData.SelectCardNo = sendGameData.SelectCardNo;
@@ -341,6 +353,7 @@ public class GameData
             $"  {nameof(global::UserData.IsUseDouble)}: {UserData[0].IsUseDouble}\n" +
             $"  {nameof(global::UserData.IsUseDouble)}: {UserData[0].IsUseRare}\n" +
             $"  {nameof(global::UserData.RemainComboCount)}: {UserData[0].RemainComboCount}\n" +
+            $"  {nameof(global::UserData.IsAnswered)}: {UserData[0].IsAnswered}\n" +
             $" User2Data\n" +
             $"  {nameof(global::UserData.WordPlaceRead)}: {string.Join(",", UserData[1].WordPlaceRead)}\n" +
             $"  {nameof(global::UserData.TotalScore)}: {UserData[1].TotalScore}\n" +
@@ -349,6 +362,7 @@ public class GameData
             $"  {nameof(global::UserData.IsUseDouble)}: {UserData[1].IsUseDouble}\n" +
             $"  {nameof(global::UserData.IsUseDouble)}: {UserData[1].IsUseRare}\n" +
             $"  {nameof(global::UserData.RemainComboCount)}: {UserData[1].RemainComboCount}\n" +
+            $"  {nameof(global::UserData.IsAnswered)}: {UserData[1].IsAnswered}\n" +
             $" {nameof(IsUseCard)}: {IsUseCard}\n" +
             $" {nameof(UseCard)}: {UseCard}\n" +
             $" {nameof(SelectCardNo)}: {SelectCardNo}\n" +

@@ -192,6 +192,20 @@ public class SendGameData
     public int User2RemainComboCount => m_user2RemainComboCount;
 
     /// <summary>
+    /// User1の回答済みフラグ
+    /// </summary>
+    [SerializeField]
+    private bool m_user1IsAnswered;
+    public bool User1IsAnswered => m_user1IsAnswered;
+
+    /// <summary>
+    /// User2の回答済みフラグ
+    /// </summary>
+    [SerializeField]
+    private bool m_user2IsAnswered;
+    public bool User2IsAnswered => m_user2IsAnswered;
+
+    /// <summary>
     /// カード使用フラグ
     /// </summary>
     [SerializeField]
@@ -261,6 +275,8 @@ public class SendGameData
         m_user2IsUseRare = false;
         m_user1RemainComboCount = 0;
         m_user2RemainComboCount = 0;
+        m_user1IsAnswered = false;
+        m_user2IsAnswered = false;
         m_isUseCard = false;
         m_useCard = 0;
         m_selectCardNo = -1;
@@ -332,6 +348,8 @@ public class SendGameData
         sendGameData.m_user2IsUseRare = json[0][nameof(m_user2IsUseRare)].Get<bool>();
         sendGameData.m_user1RemainComboCount = (int)json[0][nameof(m_user1RemainComboCount)].Get<long>();
         sendGameData.m_user2RemainComboCount = (int)json[0][nameof(m_user2RemainComboCount)].Get<long>();
+        sendGameData.m_user1IsAnswered = json[0][nameof(m_user1IsAnswered)].Get<bool>();
+        sendGameData.m_user2IsAnswered = json[0][nameof(m_user2IsAnswered)].Get<bool>();
         sendGameData.m_isUseCard = json[0][nameof(m_isUseCard)].Get<bool>();
         sendGameData.m_useCard = (int)json[0][nameof(m_useCard)].Get<long>();
         sendGameData.m_selectCardNo = (int)json[0][nameof(m_selectCardNo)].Get<long>();
@@ -381,6 +399,8 @@ public class SendGameData
         sendGameData.m_user2IsUseRare = gameData.UserData[1].IsUseRare;
         sendGameData.m_user1RemainComboCount = gameData.UserData[0].RemainComboCount;
         sendGameData.m_user2RemainComboCount = gameData.UserData[1].RemainComboCount;
+        sendGameData.m_user1IsAnswered = gameData.UserData[0].IsAnswered;
+        sendGameData.m_user2IsAnswered = gameData.UserData[1].IsAnswered;
         sendGameData.m_isUseCard = gameData.IsUseCard;
         sendGameData.m_useCard = (int)gameData.UseCard;
         sendGameData.m_selectCardNo = gameData.SelectCardNo;
