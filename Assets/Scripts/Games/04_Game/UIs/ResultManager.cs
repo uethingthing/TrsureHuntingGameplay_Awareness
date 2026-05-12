@@ -28,7 +28,10 @@ public class ResultManager : MonoBehaviour
     private ResultDialogManager m_resultDialogManager;
 
     [SerializeField]
-    private Image m_resultImage;
+    private Image m_winImage;
+
+    [SerializeField]
+    private Image m_loseImage;
 
     [SerializeField]
     private Image m_resultBgImage;
@@ -66,7 +69,7 @@ public class ResultManager : MonoBehaviour
         bool isContinue = false;
         string messageText = "DRAW";
         string buttonText = "Retry";
-        m_resultImage.sprite = m_sprites[(int)Result.Draw];
+        m_winImage.gameObject.SetActive(false);
         m_resultBgImage.sprite = m_bgSprites[(int)Result.Draw];
 
         // 再戦ボタンを表示
@@ -81,13 +84,15 @@ public class ResultManager : MonoBehaviour
         if (winner == GameInfo.MyTurn)
         {
             messageText = "WIN";
-            m_resultImage.sprite = m_sprites[(int)Result.Win];
+            m_winImage.gameObject.SetActive(true);
+            m_loseImage.gameObject.SetActive(false);
             m_resultBgImage.sprite = m_bgSprites[(int)Result.Win];
         }
         else if (winner == GameInfo.OpponentTurn)
         {
             messageText = "LOSE";
-            m_resultImage.sprite = m_sprites[(int)Result.Lose];
+            m_loseImage.gameObject.SetActive(true);
+            m_winImage.gameObject.SetActive(false);
             m_resultBgImage.sprite = m_bgSprites[(int)Result.Lose];
         }
 
