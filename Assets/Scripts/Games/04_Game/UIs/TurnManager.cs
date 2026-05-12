@@ -8,10 +8,10 @@ public class TurnManager : MonoBehaviour
     //--------------------------------------------
 
     [SerializeField]
-    private Image m_turnImage;
+    GameObject m_yourTurnObj;
 
     [SerializeField]
-    private Sprite[] m_sprites;
+    GameObject m_opponentTurnObj;
 
     private enum TurnSpriteIdx
     {
@@ -42,11 +42,13 @@ public class TurnManager : MonoBehaviour
         {
             if(turn == GameInfo.MyTurn)
             {
-                m_turnImage.sprite = m_sprites[(int)TurnSpriteIdx.MyTurn];
+                m_yourTurnObj.SetActive(true);
+                m_opponentTurnObj.SetActive(false);
             }
             else if(turn == GameInfo.OpponentTurn)
             {
-                m_turnImage.sprite = m_sprites[(int)TurnSpriteIdx.OpponentTurn];
+                m_opponentTurnObj.SetActive(true);
+                m_yourTurnObj.SetActive(false);
             }
             m_oldTurn = turn;
         }
