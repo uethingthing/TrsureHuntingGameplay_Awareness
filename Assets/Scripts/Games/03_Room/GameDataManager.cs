@@ -68,6 +68,16 @@ public class GameDataManager : UWRHelper
     /// </summary>
     private string m_user2;
 
+
+    //--------------------------------------------
+    // 変数
+    //--------------------------------------------
+
+    /// <summary>
+    /// ステージ番号保持用
+    /// </summary>
+    private static int m_StageNoCache = -1;
+
     //--------------------------------------------
     // 初期化
     //--------------------------------------------
@@ -279,7 +289,8 @@ public class GameDataManager : UWRHelper
                 do
                 {
                     randomStage = UnityEngine.Random.Range(0, MAX_STAGE);
-                } while (GameInfo.Game.StageNo == randomStage);
+                } while (m_StageNoCache == randomStage);
+                m_StageNoCache = randomStage;
                 GameInfo.Game.StageNo = randomStage;
                 yield return CoUpdateGameData(GameInfo.Game);
                 break;
