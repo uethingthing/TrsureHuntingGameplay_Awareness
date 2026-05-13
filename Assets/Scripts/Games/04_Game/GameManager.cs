@@ -374,7 +374,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 }
             }
 
-            if (!IsVisiblePopup && GameInfo.Game.Turn == Turn.Result)
+            if (!IsVisiblePopup &&
+                ((GameInfo.Game.Turn == Turn.Result)    // リザルト遷移 または
+                || CheckGameEnd()))                     // ゲームが終了している
             {
                 yield return CoResult();
             }
